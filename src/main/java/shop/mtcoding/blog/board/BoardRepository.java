@@ -12,6 +12,12 @@ import java.util.List;
 public class BoardRepository {
     private final EntityManager em;
 
+    public Board findByIdJoinUserReplies(Integer id) {
+        Query query = em.createQuery("select b from Board b join fetch b.user LEFT JOIN FETCH b.replies r JOIN FETCH r.user where b.id = :id", Board.class);
+        query.setParameter("id", id);
+        return (Board) query.getSingleResult();
+    }
+
     public Board findByIdJoinUser(Integer id) {
         Query query = em.createQuery("select b from Board b join fetch b.user where b.id = :id", Board.class);
         query.setParameter("id", id);
@@ -38,4 +44,5 @@ public class BoardRepository {
     public void save(Board board) {
         em.persist(board);
     }
+
 }
