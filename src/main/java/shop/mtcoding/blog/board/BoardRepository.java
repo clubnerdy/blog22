@@ -13,7 +13,7 @@ public class BoardRepository {
     private final EntityManager em;
 
     public Board findByIdJoinUserReplies(Integer id) {
-        Query query = em.createQuery("select b from Board b join fetch b.user LEFT JOIN FETCH b.replies r JOIN FETCH r.user where b.id = :id", Board.class);
+        Query query = em.createQuery("select b from Board b join fetch b.user LEFT JOIN FETCH b.replies r LEFT JOIN FETCH r.user where b.id = :id", Board.class);
         query.setParameter("id", id);
         return (Board) query.getSingleResult();
     }
