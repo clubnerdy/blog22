@@ -109,12 +109,17 @@
         let responseBody = await response.json(); // response.text();-> 극혐
         console.log(responseBody);
 
-        // DOM 업데이트
-        let loveIcon = document.querySelector('#loveIcon');
-        let loveCount = document.querySelector('#loveCount');
-        loveIcon.style.color = 'black';
-        loveIcon.setAttribute('onclick', `saveLove()`);
-        loveCount.innerHTML = responseBody.body.loveCount;
+        if(responseBody.status != 200){
+            alert(responseBody.msg);
+        }else {
+            // DOM 업데이트
+            let loveIcon = document.querySelector('#loveIcon');
+            let loveCount = document.querySelector('#loveCount');
+            loveIcon.style.color = 'black';
+            loveIcon.setAttribute('onclick', `saveLove()`);
+            loveCount.innerHTML = responseBody.body.loveCount;
+        }
+
     }
 </script>
 

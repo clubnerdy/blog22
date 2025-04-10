@@ -4,6 +4,8 @@ package shop.mtcoding.blog.reply;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shop.mtcoding.blog._core.error.ex.Exception403;
+import shop.mtcoding.blog._core.error.ex.Exception404;
 import shop.mtcoding.blog.user.User;
 
 @RequiredArgsConstructor
@@ -20,10 +22,10 @@ public class ReplyService {
     public Integer 댓글삭제(Integer id, Integer sessionUserId) {
         Reply replyPS = replyRepository.findById(id);
 
-        if (replyPS == null) throw new RuntimeException("댓글이 없는데 왜 삭제하노");
+        if (replyPS == null) throw new Exception404("댓글이 존재하지 않습니다.");
 
         if (!replyPS.getUser().getId().equals(sessionUserId)) {
-            throw new RuntimeException("니 댓글 아닌데");
+            throw new Exception403("권한이 없습니다.");
         }
 
         int boardId = replyPS.getBoard().getId();
