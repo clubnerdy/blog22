@@ -26,6 +26,8 @@ public class LoveService {
 
         Integer boardId = lovePS.getBoard().getId();
 
+        loveRepository.deleteById(id);
+
         Long loveCount = loveRepository.findByBoardId(boardId);
         return new LoveResponse.DeleteDTO(loveCount.intValue());
     }

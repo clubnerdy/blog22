@@ -5,7 +5,7 @@ import lombok.Data;
 public class LoveResponse {
 
     @Data
-    public static  class SaveDTO {
+    public static class SaveDTO {
         private Integer loveId;
         private Integer loveCount;
 
@@ -16,7 +16,7 @@ public class LoveResponse {
     }
 
     @Data
-    public static  class DeleteDTO {
+    public static class DeleteDTO {
         private Integer loveCount;
 
         public DeleteDTO(Integer loveCount) {
