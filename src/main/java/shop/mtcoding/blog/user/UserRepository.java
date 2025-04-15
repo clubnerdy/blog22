@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 @Repository
 public class UserRepository {
-public class UserRepository {
     private final EntityManager em;
 
     public User findById(Integer id) {
