@@ -7,9 +7,7 @@ import shop.mtcoding.blog._core.error.ex.Exception403;
 import shop.mtcoding.blog._core.error.ex.Exception404;
 import shop.mtcoding.blog.love.Love;
 import shop.mtcoding.blog.love.LoveRepository;
-import shop.mtcoding.blog.reply.Reply;
 import shop.mtcoding.blog.reply.ReplyRepository;
-import shop.mtcoding.blog.reply.ReplyRequest;
 import shop.mtcoding.blog.user.User;
 
 import java.util.List;
@@ -35,11 +33,13 @@ public class BoardService {
         boardRepository.delete(boardPS);
     }
 
-    public List<Board> 글목록보기(Integer userId) {
+    public BoardResponse.DTO 글목록보기(Integer userId, Integer page) {
         if (userId == null) {
-            return boardRepository.findAll();
+            List<Board> boards = boardRepository.findAll(page);
+            return new BoardResponse.DTO(boards, page - 1, page + 1);
         } else {
-            return boardRepository.findAll(userId);
+            List<Board> boards = boardRepository.findAll(userId, page);
+            return new BoardResponse.DTO(boards, page - 1, page + 1);
         }
     }
 
