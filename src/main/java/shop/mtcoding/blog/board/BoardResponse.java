@@ -14,13 +14,30 @@ public class BoardResponse {
         private List<Board> boards;
         private Integer prev;
         private Integer next;
-        private Boolean isFirst;
-        private Boolean isLast;
 
-        public DTO(List<Board> boards, Integer prev, Integer next) {
+        // 페이징
+        private Integer size;
+        private Integer totalCount;
+        private Integer totalPage;
+        private Integer current;
+        private Boolean isFirst; // currentPage
+        private Boolean isLast; // totalCount, totalPage == current
+        private List<Integer> numbers; // 20개 [1, 2, 3, 4, 5, 6, 7] -> model.numbers -> {{.}} 그냥 안에 있는거 뿌려줌
+
+        public DTO(List<Board> boards, Integer current, Integer totalCount) {
             this.boards = boards;
-            this.prev = prev;
-            this.next = next;
+            this.prev = current - 1;
+            this.next = current + 1;
+            this.size = 3; // 원래는 따로 빼서 처리하는데
+            this.totalCount = totalCount; // 5로 given 먼저 해서 연산해보고
+            this.totalPage = makeTotalPage(totalCount, size);
+            this.isFirst = current == 0;
+            this.isLast = (totalPage - 1) == current;
+        }
+
+        private Integer makeTotalPage(int totalCount, int size) {
+            int rest = totalCount % size > 0 ? 1 : 0; //나머지값은 0~2를 순회함
+            return totalCount / size + rest;
         }
     }
 

@@ -35,11 +35,13 @@ public class BoardService {
 
     public BoardResponse.DTO 글목록보기(Integer userId, Integer page) {
         if (userId == null) {
+            Long totalCount = boardRepository.totalCount();
             List<Board> boards = boardRepository.findAll(page);
-            return new BoardResponse.DTO(boards, page - 1, page + 1);
+            return new BoardResponse.DTO(boards, page, totalCount.intValue());
         } else {
+            Long totalCount = boardRepository.totalCount(userId);
             List<Board> boards = boardRepository.findAll(userId, page);
-            return new BoardResponse.DTO(boards, page - 1, page + 1);
+            return new BoardResponse.DTO(boards, page, totalCount.intValue());
         }
     }
 

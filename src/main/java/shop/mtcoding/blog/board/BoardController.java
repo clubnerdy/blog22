@@ -55,6 +55,11 @@ public class BoardController {
         return "board/detail";
     }
 
+//    @GetMapping("v2")
+//    public @ResponseBody BoardResponse.DTO list(@RequestParam(required = false, value = "page", defaultValue = "0") Integer page) {
+//        return boardService.글목록보기(null, page);
+//    }
+
     @GetMapping("/")
     public String list(HttpServletRequest request, @RequestParam(required = false, value = "page", defaultValue = "0") Integer page) {
         User sessionUser = (User) session.getAttribute("sessionUser");
