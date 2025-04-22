@@ -33,11 +33,25 @@ public class BoardResponse {
             this.totalPage = makeTotalPage(totalCount, size);
             this.isFirst = current == 0;
             this.isLast = (totalPage - 1) == current;
+            this.numbers = makeNumbers(current, totalPage);
         }
 
         private Integer makeTotalPage(int totalCount, int size) {
             int rest = totalCount % size > 0 ? 1 : 0; //나머지값은 0~2를 순회함
             return totalCount / size + rest;
+        }
+
+        private List<Integer> makeNumbers(int current, int totalPage) {
+            List<Integer> numbers = new ArrayList<>();
+
+            int start = (current / 5) * 5;
+            int end = Math.min(start + 5, totalPage);
+
+            for (int i = start; i < end; i++) {
+                numbers.add(i);
+            }
+
+            return numbers;
         }
     }
 
