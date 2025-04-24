@@ -23,8 +23,9 @@ public class BoardResponse {
         private Boolean isFirst; // currentPage
         private Boolean isLast; // totalCount, totalPage == current
         private List<Integer> numbers; // 20개 [1, 2, 3, 4, 5, 6, 7] -> model.numbers -> {{.}} 그냥 안에 있는거 뿌려줌
+        private String keyword;
 
-        public DTO(List<Board> boards, Integer current, Integer totalCount) {
+        public DTO(List<Board> boards, Integer current, Integer totalCount, String keyword) {
             this.boards = boards;
             this.prev = current - 1;
             this.next = current + 1;
@@ -34,6 +35,7 @@ public class BoardResponse {
             this.isFirst = current == 0;
             this.isLast = (totalPage - 1) == current;
             this.numbers = makeNumbers(current, totalPage);
+            this.keyword = keyword; // 경우의 수 두개 있음 => keyword 값이 잆거나 null이거나,
         }
 
         private Integer makeTotalPage(int totalCount, int size) {

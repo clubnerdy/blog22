@@ -61,13 +61,16 @@ public class BoardController {
 //    }
 
     @GetMapping("/")
-    public String list(HttpServletRequest request, @RequestParam(required = false, value = "page", defaultValue = "0") Integer page) {
+    public String list(HttpServletRequest request,
+                       @RequestParam(required = false, value = "page", defaultValue = "0") Integer page,
+                       @RequestParam(required = false, value = "keyword", defaultValue = "") String keyword) { // 값이 있거나 공백이거나, null은 안들어오게 처리됨
+        //System.out.println("keyword : " + keyword);
         User sessionUser = (User) session.getAttribute("sessionUser");
 
         if (sessionUser == null) {
-            request.setAttribute("model", boardService.글목록보기(null, page));
+            request.setAttribute("model", boardService.글목록보기(null, page, keyword));
         } else {
-            request.setAttribute("model", boardService.글목록보기(sessionUser.getId(), page));
+            request.setAttribute("model", boardService.글목록보기(sessionUser.getId(), page, keyword));
         }
 
         return "board/list";

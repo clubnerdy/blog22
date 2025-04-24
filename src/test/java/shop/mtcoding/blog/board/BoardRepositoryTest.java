@@ -52,7 +52,7 @@ public class BoardRepositoryTest {
         Integer userId = 1;
 
         // when
-        List<Board> boardList = boardRepository.findAll(userId);
+        List<Board> boardList = boardRepository.findAll(userId, null);
 
         // eye
         for (Board board : boardList) {
